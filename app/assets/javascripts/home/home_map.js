@@ -44,7 +44,8 @@ var HomeMap = function(){
 
 	onSuccessLoadMarkers = function(results){
 
-		allMarkers = new L.LayerGroup();
+		//allMarkers = new L.LayerGroup();
+		allMarkers = new L.MarkerClusterGroup();
 
 		var pos = results.pointOfSales;
 		removeMarkers();

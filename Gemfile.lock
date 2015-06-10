@@ -70,6 +70,8 @@ GEM
     jquery-ui-rails (5.0.0)
       railties (>= 3.2.16)
     json (1.8.1)
+    leaflet-markercluster-rails (0.7.0)
+      railties (>= 3.1)
     leaflet-rails (0.7.3)
     mail (2.6.1)
       mime-types (>= 1.16, < 3)
@@ -154,6 +156,7 @@ DEPENDENCIES
   jquery-timepicker-rails
   jquery-turbolinks
   jquery-ui-rails
+  leaflet-markercluster-rails
   leaflet-rails
   oj
   paper_trail (~> 3.0.3)
