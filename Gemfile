@@ -17,6 +17,7 @@ gem 'sass-rails'
 gem 'coffee-rails'
 gem 'bootstrap-sass'
 gem "leaflet-rails"
+gem 'leaflet-markercluster-rails'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', :platforms => :ruby
