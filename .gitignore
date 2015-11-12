@@ -19,3 +19,6 @@
 
 #Ignore db schema file
 /db/schema.rb
+
+#Ignore files directory
+/public/uploads/detail_info/
