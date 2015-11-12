@@ -122,7 +122,7 @@ $minHeightMap: 665px;
 		min-height: $minHeightMap; //not less than an open filter
 		
 		width: 100%;
-		#map {
+		#map, #online_shops_map {
 			height: 100%;
 		}
 	}

@@ -59,6 +59,8 @@ Nullkilometer::Application.routes.draw do
   scope "(:locale)", :locale => /en|de|lt/ do
     root :to => 'home#index'
 
+    get '/online_shops' => 'home#online_shops'
+
     get '/contacts' => 'home#contacts'
     get '/legal_information' => 'home#legal_information'    
     get '/copyright' => 'home#copyright'    

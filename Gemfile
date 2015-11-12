@@ -53,6 +53,9 @@ gem 'protected_attributes'
 
 gem "font-awesome-rails"
 
+gem "rmagick"
+gem "carrierwave"
+
 
 
 #devise intructions

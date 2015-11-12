@@ -1,4 +1,12 @@
-var HomeMap = function(){
+$(function(){
+	var 
+		map = new OnlineShopsMap();
+		map.initmap(INITIALLAT, INITIALLON, 12); // around Berlin;
+		map.loadMarkers();
+		map.locateUser(8); //re-activate when there are more tags everywhere
+});
+
+var OnlineShopsMap = function(){
 	var 
 	ajaxRequest,
 	pos, 
@@ -22,7 +30,7 @@ var HomeMap = function(){
     		scrollWheelZoom: false
 	    },     
 	    mapLayer = new L.TileLayer(osmTilesUrl);    
-	    map = new L.Map('map', options).addLayer(mapLayer);
+	    map = new L.Map('online_shops_map', options).addLayer(mapLayer);
 	    //map.on('locationfound', onLocationFound);
 			map.on('locationerror', onLocationError);
 	},
@@ -45,6 +53,7 @@ var HomeMap = function(){
 	onSuccessLoadMarkers = function(results){
 
 		allMarkers = new L.LayerGroup();
+		allCircles = new L.LayerGroup();
 		//allMarkers = new L.MarkerClusterGroup();
 
 		var pos = results.pointOfSales;
@@ -63,24 +72,24 @@ var HomeMap = function(){
 			var 
 			latlon = new L.LatLng(pos[i].lat,pos[i].lon, true),
 			marker = new L.Marker(latlon, {icon: markerIcon});
-			marker.data=pos[i];
+			marker.data=pos[i],
+		  // Add a circle...
+		  circleOptions = {
+	        color: 'red', 
+	        fillColor: '#f03', 
+	        fillOpacity: 0.3
+	    },
+	    circle = new L.Circle(latlon, 50000, circleOptions);
+
 		//	map.addLayer(marker);
 			allMarkers.addLayer(marker);
-			bindListeners(marker);	
+			allCircles.addLayer(circle);	
+
+			bindListeners(marker);		   		
 		}
 		map.addLayer(allMarkers);
+		map.addLayer(allCircles);
 
-   // Add a circle...
-   var circleLocation = new L.LatLng(51.508, -0.11),
-       circleOptions = {
-           color: 'red', 
-           fillColor: '#f03', 
-           fillOpacity: 0.5
-       };
-       
-   var circle = new L.Circle(circleLocation, 500, circleOptions);
-   map.addLayer(circle);
-		
 	},
 	bindListeners = function(marker){
 		marker.on('click', function(evt) {	
@@ -97,17 +106,6 @@ var HomeMap = function(){
 		marker.on('popupclose', function(){
 			resizeMarkerIcon(marker, false);
 		});
-/*		marker.on('mouseover', function(evt) {
-			//evt.target.closePopup();
-		    marker.bindPopup(productCategoryIds_readable, {className: 'mouseover-popup'});
-		    marker.openPopup();
-		});
-		//TODO: only the popup that appeared on mouseover
-		marker.on('mouseout', function(evt) {
-			//if($(".mouseover-popup").length>0){
-				$(".mouseover-popup").remove();
-			//}	
-		});*/
 	}, 
 	buildInfoboxHtml= function(marker){
 		var posId = marker.data.id,

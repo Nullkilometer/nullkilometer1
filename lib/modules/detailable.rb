@@ -1,6 +1,6 @@
 module Detailable
 	def self.included base
-		base.attr_accessible :description, :mail, :phone, :cell_phone, :website
+		base.attr_accessible :description, :mail, :phone, :cell_phone, :website, :image, :remote_image_url
 		base.has_one :detail_info, :as => :detailable, :autosave => true, :dependent => :destroy
 		base.validate :detail_infos_must_be_valid
 	  base.alias_method_chain :detail_info, :build

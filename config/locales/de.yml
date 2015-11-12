@@ -15,6 +15,8 @@ de:
         cell_phone: "Handynummer"
         market_stalls: "Marktstände"
         additional_features: "Andere Eigenschaften"
+        image: "Bild"
+        remote_image_url: "Bild Url"
   button:
     search_point_of_sales: "Nach Verkaufsort suchen"
     search_point_of_sales_open: "Filter ausblenden"

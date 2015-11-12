@@ -23,7 +23,7 @@ class PointOfSale < PointOfInterest
   #validations
   validates :pos_type, :presence => true, :numericality => { :only_integer => true, :less_than => POS_TYPE_NAMES.length }
   
-  #validates :opening_times, :length => { :minimum => 1}
+  #validates :opening_times, :length => { :minimum => 1 }
   validate :at_least_one_opening_time
 
   def at_least_one_opening_time

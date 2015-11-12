@@ -4,3 +4,6 @@
 <%= f.input :mail, label: "#{I18n.t("properties.additional_information.email")}:", input_html: { class: "form-control"}, wrapper_html: { class: "form-group" } %>
 <%= f.input :website, label: "#{I18n.t("properties.additional_information.website")}:", input_html: { class: "form-control"}, wrapper_html: { class: "form-group" } %>
 <%= f.input :description, label: "#{I18n.t("properties.additional_information.description")}:", :as => :text, input_html: { class: "form-control", :rows => "10"}, wrapper_html: { class: "form-group" } %>
+<%= f.input :image, as: :file , label: "#{I18n.t("properties.additional_information.image")}:", input_html: { class: "form-control"}, wrapper_html: { class: "form-group" } %>
+<%#= f.input :remote_image_url, label: "#{I18n.t("properties.additional_information.remote_image_url")}:", input_html: { class: "form-control"}, wrapper_html: { class: "form-group" } %>
+

@@ -2,10 +2,12 @@ class DetailInfo < ActiveRecord::Base
 
 	has_paper_trail
 
-  attr_accessible :description, :mail, :phone, :cell_phone, :website
+  attr_accessible :description, :mail, :phone, :cell_phone, :website, :image, :remote_image_url
+
   alias_attribute :cellPhone, :cell_phone
 
   belongs_to :detailable, :polymorphic => true
+  mount_uploader :image, ImageUploader
 
 	# add http if does not contain
 	before_validation :smart_add_url_protocol

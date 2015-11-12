@@ -25,7 +25,15 @@
 			<%= render 'point_of_sales/posInfoList' %>
 		</div>
 		<div class="col-sm-12 col-md-6 col-lg-6">
-			<div id="profilePagePosMap">Map can be displayed only if JavaScript is enabled.</div>
+			<div class="row">
+				<div id="image_wrapper" class="col-md-12" >
+					<%= image_tag( @point_of_interest.detail_info.image_url, class: "img-responsive center-block") if @point_of_interest.detail_info.image? %> <!--@point_of_interest.detail_info.image_url if @point_of_interest.detail_info.image? %>-->
+				</div>
+				<div class="col-md-12">
+					<div id="profilePagePosMap">Map can be displayed only if JavaScript is enabled.</div>
+				</div>
+			</div>
+			
 		</div>
 	</div>
 	<div class="row">
