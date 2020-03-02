@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
 	respond_to :xml, :json
-	before_filter :set_seller
+	before_action :set_seller
 
 	def index
 		unless @seller

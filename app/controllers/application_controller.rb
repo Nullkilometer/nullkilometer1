@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
 
 #http://stackoverflow.com/questions/8390394/switch-language-with-url-rails-3
-  before_filter :set_locale
+  before_action :set_locale
 	def set_locale
    		I18n.locale = params[:locale] || I18n.default_locale
    		:export_i18n_messages
@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
 	# logger.debug "default_url_options is passed options: #{options.inspect}\n"
 	  { :locale => I18n.locale }
 	end
- # 
+ #
 
 	rescue_from Errors::NotFoundError do |e|
 		render :json => {:errors => e.message}, :status => 404
@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
 	    {object_name => objects}
 	end
 
-#had to move the 2 following methods here from point_of_sales_helper, because they were not 
+#had to move the 2 following methods here from point_of_sales_helper, because they were not
 #accessible from there (ipossble to use helper methods in controllers)
 	def updated_product_category_ids pos
 		categories = pos.product_category_ids
@@ -46,6 +46,6 @@ class ApplicationController < ActionController::Base
 
   	def product_category_names pos
 		I18n.t("product.category_names").values_at(*pos.product_category_ids)
-	end	
+	end
 
 end

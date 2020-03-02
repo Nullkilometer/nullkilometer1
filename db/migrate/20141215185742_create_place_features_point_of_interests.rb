@@ -1,4 +1,4 @@
-class CreatePlaceFeaturesPointOfInterests < ActiveRecord::Migration
+class CreatePlaceFeaturesPointOfInterests < ActiveRecord::Migration[4.2]
 	#drop_table 'place_features_point_of_interests' unless !ActiveRecord::Base.connection.table_exists? 'place_features_point_of_interests'
   def change
     create_table :place_features_point_of_interests, id: false do |t|

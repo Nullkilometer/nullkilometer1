@@ -6,7 +6,7 @@
 	}
 }
 
-form#new_point_of_sale, form.edit_point_of_sale, form#new_market_stall, form.edit_market_stall, 
+form#new_point_of_sale, form.edit_point_of_sale, form#new_market_stall, form.edit_market_stall,
 form.edit_admin, form.new_admin {
 	margin-bottom: 10px;
 	.form-inputs{
@@ -25,12 +25,12 @@ form.edit_admin, form.new_admin {
 
 		input[type="text"], /*TODO: maybe this is not needed, cuz the following is enough*/
 		input.string, textarea {
-			@media only screen and (min-width: 500px) { 
+			@media only screen and (min-width: 500px) {
 				//width: 400px;
 			}
-			@media only screen and (max-width: 500px) { 
+			@media only screen and (max-width: 500px) {
 				width: 250px;
-			}			
+			}
 		}
 
 		.timeTextInput {
@@ -41,7 +41,7 @@ form.edit_admin, form.new_admin {
 			color: #666;
 		}
 
-		#openingTimesContainer{ 
+		#openingTimesContainer{
 			padding-left: 0px;
 			.openingDayContainer{
 				padding-left: 20px;
@@ -86,7 +86,7 @@ form.edit_admin, form.new_admin {
 
 		position: relative;
 		padding: 10px;
-		background-color: #eee;		
+		background-color: #eee;
 
 
 		#formPosMap{
@@ -119,7 +119,7 @@ form.edit_admin, form.new_admin {
 				background: $transparentBackground;
 				border: 1px solid rgb(204, 204, 204);
 				width: 250px;
-				right: $buttonAndInputHeight;			
+				right: $buttonAndInputHeight;
 				@include roundedCorners(0px 0px 0px $corner-radius);
 				position: absolute;
 				padding: 0 5px;

@@ -11,11 +11,12 @@
  *
  *= require font-awesome
  *= require_self
+ *= depends_on _global-variables
  *= require leaflet.css
  *= require leaflet.markercluster
  *= require leaflet.markercluster.default
  *= require jquery.timepicker.css
- *= require jquery-ui 
+ *= require jquery-ui
  */
 
  /**
@@ -27,9 +28,9 @@
 
 
 /* mixins, variables, etc. */
-@import '_mixins';
-@import '_fonts';
-@import '_global-variables';
+@import 'mixins';
+@import 'fonts';
+@import 'global-variables';
 
 
 /* main styling - like body, headlines, etc. */
