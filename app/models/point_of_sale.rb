@@ -1,8 +1,8 @@
 class PointOfSale < PointOfInterest
   POS_TYPE_NAMES = I18n.t("point_of_sale.pos_type_names")
-  
+
   attr_accessible :posTypeId, :openingTimes, :marketStalls, :opening_times_attributes
-  
+
   alias_attribute :posTypeId, :pos_type
   alias_attribute :openingTimes, :opening_times_attributes
   alias_attribute :marketStalls, :market_stalls_attributes
@@ -18,11 +18,12 @@ class PointOfSale < PointOfInterest
   sells_products
 
   #scopes
-  default_scope includes(:opening_times)
-  
+  default_scope { includes(:opening_times) }
+
   #validations
-  validates :pos_type, :presence => true, :numericality => { :only_integer => true, :less_than => POS_TYPE_NAMES.length }
-  
+  validates_numericality_of :pos_type, only_integer: true, less_than: POS_TYPE_NAMES.length, presence: true
+  #validates :pos_type, :presence => true, :numericality => { :only_integer => true, :less_than => POS_TYPE_NAMES.length }
+
   #validates :opening_times, :length => { :minimum => 1 }
   validate :at_least_one_opening_time
 
@@ -31,11 +32,11 @@ class PointOfSale < PointOfInterest
   end
 
   def all_opening_times
-    existing_opening_time = Hash[opening_times.collect { |ot| [ot.day, ot] }] 
+    existing_opening_time = Hash[opening_times.collect { |ot| [ot.day, ot] }]
 
     (0..6).collect do | day |
       existing_opening_time[day] || opening_times.build(day: day)
-    end        
+    end
   end
 
 end

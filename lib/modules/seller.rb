@@ -6,7 +6,7 @@ module Seller
   	base.accepts_nested_attributes_for :products, :allow_destroy => true, :reject_if => lambda { |pa| pa[:category].blank?}
     base.validate :validate_presence_of_product_categories
   	base.class_eval do
-  		default_scope includes(:products)
+			default_scope { includes(:products) }
   	end
 	end
 

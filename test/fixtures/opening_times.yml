@@ -1,13 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  point_of_sale: 
+  #point_of_sale: one
   day: 1
-  form: "13:30"
-  to: "13:30"
+  # form: "13:30"
+  # to: "13:30"
 
 two:
-  point_of_sale: 
+  #point_of_sale: two
   day: 1
-  from: "13:30"
-  to: "13:30"
+  # from: "13:30"
+  # to: "13:30"
