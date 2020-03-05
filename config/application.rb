@@ -4,8 +4,6 @@ require 'rails/all'
 
 require 'csv'
 
-require 'active_record/connection_adapters/postgis_adapter/railtie'
-
 if defined?(Bundler)
  # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -45,7 +43,7 @@ module Nullkilometer
 
     # rails will fallback to en, no matter what is set as config.i18n.default_locale
 #    config.i18n.fallbacks = [:de]
-    
+
 
     config.before_configuration do
       I18n.enforce_available_locales = false
@@ -57,10 +55,8 @@ module Nullkilometer
       I18n.default_locale = :en
     end
 
-
     # Configure the default encoding used in templates for Ruby 1.9.
-   # config.encoding = "UTF-8"
-    config.encoding = "utf-8"
+    config.encoding = 'utf-8'
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
@@ -77,7 +73,6 @@ module Nullkilometer
     # This will create an empty whitelist of attributes available for mass-assignment for all models
     # in your app. As such, your models will need to explicitly whitelist or blacklist accessible
     # parameters by using an attr_accessible or attr_protected declaration.
-    config.active_record.whitelist_attributes = true
 
     # Enable the asset pipeline
     config.assets.enabled = true

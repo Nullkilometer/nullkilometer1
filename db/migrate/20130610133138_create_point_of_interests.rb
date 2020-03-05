@@ -1,4 +1,4 @@
-class CreatePointOfInterests < ActiveRecord::Migration
+class CreatePointOfInterests < ActiveRecord::Migration[4.2]
   def change
     create_table :point_of_interests do |t|
       t.string :name

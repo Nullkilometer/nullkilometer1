@@ -1,4 +1,4 @@
-class CreateDetailInfos < ActiveRecord::Migration
+class CreateDetailInfos < ActiveRecord::Migration[4.2]
   def change
     create_table :detail_infos do |t|
       t.string :website

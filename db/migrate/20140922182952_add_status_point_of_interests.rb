@@ -1,8 +1,8 @@
-class AddStatusPointOfInterests < ActiveRecord::Migration
+class AddStatusPointOfInterests < ActiveRecord::Migration[4.2]
   def change
-		rename_column :point_of_interests, :status, :status_id 
+		rename_column :point_of_interests, :status, :status_id
 		create_table :statuses do |t|
-			t.string :name 
+			t.string :name
 		end
   end
 end

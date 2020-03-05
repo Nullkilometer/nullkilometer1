@@ -1,9 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  point_of_production: 
-  product: 
+  point_of_production: two
+  product: MyString
 
 two:
-  point_of_production: 
-  product: 
+  point_of_production: one
+  product: MyString

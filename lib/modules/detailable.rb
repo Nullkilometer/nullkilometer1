@@ -3,14 +3,15 @@ module Detailable
 		base.attr_accessible :description, :mail, :phone, :cell_phone, :website, :image, :remote_image_url
 		base.has_one :detail_info, :as => :detailable, :autosave => true, :dependent => :destroy
 		base.validate :detail_infos_must_be_valid
-	  base.alias_method_chain :detail_info, :build
-	  base.extend ClassMethods 
+	  #base.alias_method_chain :detail_info, :build
+		#base.alias_method :detail_info, :build
+	  base.extend ClassMethods
 	  base.init_detail_info_attributes
 	end
 
-  def detail_info_with_build
-  	detail_info_without_build || build_detail_info
-  end
+	def detail_info
+		detail_info_without_build || build_detail_info
+	end
 
   module ClassMethods
   	def init_detail_info_attributes
@@ -35,3 +36,5 @@ module Detailable
     end
   end
 end
+
+#base.send(:prepend, Detailable)

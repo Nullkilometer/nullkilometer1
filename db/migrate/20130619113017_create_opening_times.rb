@@ -1,4 +1,4 @@
-class CreateOpeningTimes < ActiveRecord::Migration
+class CreateOpeningTimes < ActiveRecord::Migration[4.2]
   def change
     create_table :opening_times do |t|
       t.references :point_of_sale

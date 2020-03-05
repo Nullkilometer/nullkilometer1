@@ -62,7 +62,7 @@ Nullkilometer::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
-  
+
   #for devise
     config.action_mailer.default_url_options = { :host => 'nullkilometer.org' }
     config.action_mailer.delivery_method = :smtp

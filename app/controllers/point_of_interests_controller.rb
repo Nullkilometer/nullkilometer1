@@ -1,8 +1,8 @@
 class PointOfInterestsController < ApplicationController
 
 	respond_to :xml, :json, :html
-  before_filter :set_poi_type 
-  
+  before_action :set_poi_type 
+
 
 	def index
     approved_status_id = Status.find_by_name('approved').id
@@ -36,11 +36,11 @@ class PointOfInterestsController < ApplicationController
     respond_with @point_of_interest
   end
 
-    
+
 	def create
     if params[:type] == "PointOfSale"
       pos_params = params[:point_of_sale]
-      pos_params["productCategoryIds"].delete("")   
+      pos_params["productCategoryIds"].delete("")
 
       set_default_product_category_for_eating_place(pos_params)
       cleanup_opening_times(pos_params)
@@ -49,29 +49,29 @@ class PointOfInterestsController < ApplicationController
 
       #assign pending status only if admin not signed in
       if admin_signed_in? == false
-        set_pending_status(@point_of_interest)   
-      end        
+        set_pending_status(@point_of_interest)
+      end
     end
 
     if @point_of_interest.save
       if params[:type] == "PointOfSale" && @point_of_interest.posTypeId == 0
-        #redirect to new market stall for that market        
+        #redirect to new market stall for that market
         if(params[:button] == "continue")
           logger.debug "Continue - #{params[:button]}"
           redirect_to controller: 'market_stalls', action: 'new',  point_of_sale_id: @point_of_interest.id, format: 'html', notice: 'addLater'
         else
           logger.debug "Finish - #{params[:button]}"
-          #TODO: a message that the place needs to be verified 
+          #TODO: a message that the place needs to be verified
           redirect_to action: 'show', id: @point_of_interest.id, format: 'html'
         end
       else
-        #TODO: a message that the place needs to be verified 
+        #TODO: a message that the place needs to be verified
         redirect_to action: 'show', id: @point_of_interest.id, format: 'html'
-      end 
+      end
     else
       generate_form_extras
       render :new
-    end   
+    end
   end
 
 
@@ -101,12 +101,12 @@ class PointOfInterestsController < ApplicationController
     end
     if params[:type] == "PointOfSale"
       pos_params = params[:point_of_sale]
-      pos_params["productCategoryIds"].delete("")  
+      pos_params["productCategoryIds"].delete("")
 
       set_default_product_category_for_eating_place(pos_params)
 
       prodCats = pos_params["productCategoryIds"]
-      @point_of_interest.products.each do |product|      
+      @point_of_interest.products.each do |product|
         unless prodCats.include?(product.category.to_s) # if product.category not in prodCats
           #TODO: change product's attributes in a more "direct" way
           @point_of_interest.products_attributes = { id: product.id, _destroy: true }
@@ -143,7 +143,7 @@ class PointOfInterestsController < ApplicationController
 
     else
       redirect_to action: 'show', id: @point_of_interest.id, format: 'html'
-    end  
+    end
   end
 
   def pos_types
@@ -182,7 +182,7 @@ class PointOfInterestsController < ApplicationController
     end
     @place_feature_names_collection = PlaceFeature.all.map { |s| [I18n.t("point_of_interest.feature_names.#{s.name}"),  s.id ]}
       #@place_feature_names_collection = I18n.t("point_of_interest.feature_names").each_with_index.map{|name, index| [name, index]}
-  end 
+  end
 
   def cleanup_opening_times(pos_params)
     logger.debug "cleaning up opening times (destroying those with empty day): #{pos_params["opening_times_attributes"]}"
@@ -194,13 +194,13 @@ class PointOfInterestsController < ApplicationController
     end
   end
 
-  def set_default_product_category_for_eating_place(pos_params) 
+  def set_default_product_category_for_eating_place(pos_params)
     logger.debug "Replacing all product category ids with one representing category 'other'"
-    # If eating place, leave "other" as the only product category 
+    # If eating place, leave "other" as the only product category
     if pos_params["posTypeId"] == "5"
       pos_params["productCategoryIds"].clear
       pos_params["productCategoryIds"].push("9") # "other"
     end
   end
-  
+
 end
