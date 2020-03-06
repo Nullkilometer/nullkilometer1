@@ -15,7 +15,7 @@
 /tmp
 
 #Ignore the database config.
-/config/database.yml
+#/config/database.yml
 
 #Ignore db schema file
 /db/schema.rb
