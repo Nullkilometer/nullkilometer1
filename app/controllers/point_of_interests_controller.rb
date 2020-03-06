@@ -1,11 +1,11 @@
 class PointOfInterestsController < ApplicationController
 
 	respond_to :xml, :json, :html
-  before_action :set_poi_type 
+  before_action :set_poi_type
 
 
 	def index
-    approved_status_id = Status.find_by_name('approved').id
+    approved_status_id = Status.find_by_name('approved')&.id
 		if params[:lat] && params[:lon] && params[:radius]
 			begin
 	      @point_of_interests = @poi_class.nearby(params[:lat], params[:lon], params[:radius]).all

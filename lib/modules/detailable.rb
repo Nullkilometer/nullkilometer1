@@ -10,7 +10,7 @@ module Detailable
 	end
 
 	def detail_info
-		detail_info_without_build || build_detail_info
+		DetailInfo.new()
 	end
 
   module ClassMethods
@@ -37,4 +37,5 @@ module Detailable
   end
 end
 
-#base.send(:prepend, Detailable)
+PointOfInterest.send(:prepend, Detailable)
+MarketStall.send(:prepend, Detailable)
