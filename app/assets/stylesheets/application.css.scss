@@ -22,7 +22,7 @@
  /**
     edited like mentioned here: https://stackoverflow.com/questions/9138946/proper-scss-asset-structure-in-rails
  */
-
+@import 'global-variables';
 
 @import 'bootstrap';
 
@@ -30,7 +30,7 @@
 /* mixins, variables, etc. */
 @import 'mixins';
 @import 'fonts';
-@import 'global-variables';
+
 
 
 /* main styling - like body, headlines, etc. */

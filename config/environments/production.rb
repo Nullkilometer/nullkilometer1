@@ -35,6 +35,9 @@ Nullkilometer::Application.configure do
   # See everything in the log (default is :info)
   # config.log_level = :debug
 
+  config.logger = Logger.new(STDOUT)
+  config.logger.level = Logger::DEBUG
+
   # Prepend all log lines with the following tags
   # config.log_tags = [ :subdomain, :uuid ]
 
@@ -58,7 +61,7 @@ Nullkilometer::Application.configure do
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found)
-  config.i18n.fallbacks = true
+  config.i18n.fallbacks = [:de]
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
