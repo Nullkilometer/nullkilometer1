@@ -83,3 +83,4 @@ production:
   database: nullkilometer_production
   username: nullkilometer
   password: <%= ENV['nullkilometer_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
