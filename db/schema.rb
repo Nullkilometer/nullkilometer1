@@ -32,6 +32,9 @@ ActiveRecord::Schema.define(version: 2015_11_12_114809) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
+  create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
+  end
+
   create_table "deliveries", id: :serial, force: :cascade do |t|
     t.integer "point_of_production_id"
     t.integer "product_id"
