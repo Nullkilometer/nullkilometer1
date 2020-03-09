@@ -55,3 +55,12 @@ gem 'font-awesome-rails'
 gem 'rmagick'
 
 gem 'carrierwave'
+
+gem 'sentry-raven'
+
+group :development, :test do
+  gem 'bond' # autocompletion for pry
+  gem 'byebug' # debugger
+  gem 'pry' # debugger
+  gem 'pry-byebug' # debugger. Best from two worlds: pry + byebug
+end

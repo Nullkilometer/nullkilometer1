@@ -1,7 +1,8 @@
 class ApplicationController < ActionController::Base
 
 #http://stackoverflow.com/questions/8390394/switch-language-with-url-rails-3
-  before_action :set_locale
+  before_action :set_raven_context, :set_locale
+
 	def set_locale
    		I18n.locale = params[:locale] || I18n.default_locale
    		:export_i18n_messages
@@ -48,4 +49,8 @@ class ApplicationController < ActionController::Base
 		I18n.t("product.category_names").values_at(*pos.product_category_ids)
 	end
 
+  def set_raven_context
+    #Raven.user_context(id: session[:current_user_id]) # or anything else in session
+    Raven.extra_context(params: params.to_unsafe_h, url: request.url)
+  end
 end
