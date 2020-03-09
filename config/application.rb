@@ -81,5 +81,9 @@ module Nullkilometer
     config.assets.version = '1.0'
 
     config.beginning_of_week = :monday
+
+    Raven.configure do |config|
+      #config.dsn = 'https://<key>:<secret>@sentry.io/<project>'
+    end
   end
 end
