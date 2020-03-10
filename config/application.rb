@@ -83,7 +83,7 @@ module Nullkilometer
     config.beginning_of_week = :monday
 
     Raven.configure do |config|
-      #config.dsn = 'https://<key>:<secret>@sentry.io/<project>'
+      config.dsn = ENV['RAVEN_DNS']
     end
   end
 end

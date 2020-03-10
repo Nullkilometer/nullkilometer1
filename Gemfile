@@ -58,6 +58,8 @@ gem 'carrierwave'
 
 gem 'sentry-raven'
 
+gem 'data_migrate' # for data migrations
+
 group :development, :test do
   gem 'bond' # autocompletion for pry
   gem 'byebug' # debugger

@@ -78,6 +78,8 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.6)
     crass (1.0.6)
+    data_migrate (6.2.0)
+      rails (>= 5.0)
     devise (4.7.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -242,6 +244,7 @@ DEPENDENCIES
   byebug
   carrierwave
   coffee-rails
+  data_migrate
   devise
   font-awesome-rails
   font-awesome-sass
