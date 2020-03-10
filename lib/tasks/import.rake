@@ -5,8 +5,8 @@ namespace :import do
 
     status_id = Status.where(name: 'approved').first.id
 
-    CSV.foreach(file_path, headers: first_row) do |row|
-      PointOfSale.create!(
+    CSV.foreach(file_path, headers: true) do |row|
+      PointOfSale.new(
         name: row[0],
         address: row[1],
         posTypeId: row[2],
@@ -19,7 +19,7 @@ namespace :import do
         marketStalls: [],
         status_id: status_id,
         openingTimes: opening_times(row[4])
-      )
+      ).save(validate: false)
     end
   end
 

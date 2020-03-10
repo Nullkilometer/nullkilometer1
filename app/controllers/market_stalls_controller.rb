@@ -114,7 +114,8 @@ class MarketStallsController < ApplicationController
   def record_params
     params.require(:market_stall)
           .permit(
-            :name, :point_of_sale_id, :status_id
+            :name, :point_of_sale_id, :status_id,
+            productCategoryIds: []
           )
   end
 
