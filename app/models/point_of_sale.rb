@@ -27,6 +27,10 @@ class PointOfSale < PointOfInterest
   #validates :opening_times, :length => { :minimum => 1 }
   validate :at_least_one_opening_time
 
+  def self.market_collection
+    PointOfSale.where(pos_type: '0').all
+  end
+
   def at_least_one_opening_time
      errors.add(:opening_times, I18n.t("errors.messages.at_least_one_opening_time")) if (opening_times.length < 1)
   end
@@ -38,5 +42,7 @@ class PointOfSale < PointOfInterest
       existing_opening_time[day] || opening_times.build(day: day)
     end
   end
+
+
 
 end

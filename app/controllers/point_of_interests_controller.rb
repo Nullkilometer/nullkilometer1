@@ -86,8 +86,7 @@ class PointOfInterestsController < ApplicationController
       raise Errors::InvalidPointOfInterest, "Couldn't find #{@poi_class} with id=#{params[:id]}"
     end
     if params[:type] == "PointOfSale"
-      pos_params = params[:point_of_sale]
-      pos_params["productCategoryIds"].delete("")
+      pos_params = record_params
 
       set_default_product_category_for_eating_place(pos_params)
 
