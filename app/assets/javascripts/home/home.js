@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	var 
+	var
 	map = new HomeMap(),
 	filterInputsStatesArray = [],
 	globalMapFilterContainer = $("#mapFilterContainer"),
@@ -28,11 +28,11 @@ $(document).ready(function(){
 			$("#mapFilterButtonMobile").click();
 			if($("#headerNavigationButton").is(":visible")) // click the button only if not hidden (means small screen)
 				$("#headerNavigationBar #headerNavigationButton").click();
-			
+
 		});
 		$("#mapFilterButton, #find_a_selling_place").click(function(){
 			desktopMapFilterPlaceholder.toggleClass("open");
-			desktopMapFilterPlaceholder.slideToggle("slow");								
+			desktopMapFilterPlaceholder.slideToggle("slow");
 		});
 		globalMapFilterContainer.find("input[type='image']").parent().click(function(e){
 			//relates to "dropdown-menu" element visible on mobile devise which by default would fire an event which closes the tab
@@ -44,16 +44,16 @@ $(document).ready(function(){
 	filterTagsBy = function(inputName, clickedInputElement){
 		//reading the variable's value every time the user uses the filter
 		mapFilterPlaceholder = getMapFilterPlaceholder(); // see which filter (mobile or normal) is currently visible
-			
+
 		clickedInputElement.toggleClass("inactive");
 		clickedInputElement.parent().find("span").toggleClass("inactive");
 		if(clickedInputElement.attr("value")=="all")
 			toggleActiveFilterInput(inputName);
-		
+
 		var activeValues = getActiveFilterValues();
 		map.setMarkerOpacity(activeValues);
 
-		var hiddenMapFilterPlaceholder = getHiddenMapFilterPlaceholder();	
+		var hiddenMapFilterPlaceholder = getHiddenMapFilterPlaceholder();
 		$.each(filterInputsStatesArray, function(){
 			if (this.active){
 				hiddenMapFilterPlaceholder.find("input[name="+this.type+"][value="+this.index+"]").removeClass("inactive");
@@ -65,7 +65,7 @@ $(document).ready(function(){
 		});
 	},
 	toggleActiveFilterInput = function(inputName){
-		var 
+		var
 		inputs = mapFilterPlaceholder.find("input[name='"+inputName+"']"),
 		selectAllInput = mapFilterPlaceholder.find("input[name='"+inputName+"'][value='all']"),
 		setAllActive = selectAllInput.hasClass("inactive") ? false : true; // select or deselect
@@ -79,25 +79,25 @@ $(document).ready(function(){
 				} else {
 					$(this).addClass("inactive");
 					$(this).parent().find("span").addClass("inactive");
-				}				
-			};				
+				}
+			};
 		});
 	},
 	getActiveFilterValues = function(){
-		var 
+		var
 		activeValues = {};
 		filterInputsStatesArray = [];
 		$.each(['productCategory', 'shopTypeId', 'openingDay'], function(index, inputName){
-			var 
+			var
 			array = [],
 			filterInputs = mapFilterPlaceholder.find("input[name="+inputName+"]");
 
-			filterInputs.each(function(){ 
+			filterInputs.each(function(){
 				var active = ($(this).hasClass("inactive")) ? false : true;
 				filterInputsStatesArray.push({ "type" : inputName ,"index": $(this).val(), "active" : active });
 				if(active) {array.push($(this).val());}
 			});
-			activeValues[inputName] = array;			
+			activeValues[inputName] = array;
 		});
 		return activeValues;
 	},
@@ -121,11 +121,11 @@ $(document).ready(function(){
 			for(var i = 0; i < data.length; i++){
 				var address = data[i].display_name;
 				if(address != previousAddress)
-					locationSearchResultsList.find("ul").append("<li title='"+data[i].lon+","+data[i].lat+"'><a class='ordinaryLink' href='#'>"+address+"</a></li>"); 
+					locationSearchResultsList.find("ul").append("<li title='"+data[i].lon+","+data[i].lat+"'><a class='ordinaryLink' href='#'>"+address+"</a></li>");
 				previousAddress = address;
 			}
 			locationSearchResultsList.find("li").click(function(){
-				var 
+				var
 					lon = this.title.split(",")[0],
 					lat = this.title.split(",")[1],
 					chosenAddress = $(this).find("a").html();
@@ -144,15 +144,12 @@ $(document).ready(function(){
 
 	translateContent();
 
-	map.initmap(INITIALLAT, INITIALLON, 12); // around Berlin;
+	map.initmap(getInitialLat(), getInitialLon(), 12); // depending on the locale;
 	map.loadMarkers();
-	map.locateUser(8); //re-activate when there are more tags everywhere
+	map.locateUser(8);
 
 	mapFilterPlaceholder = getMapFilterPlaceholder();
 	loadAddressSearchListeners();
 	loadFilterListeners();
 
 });
-
-
-

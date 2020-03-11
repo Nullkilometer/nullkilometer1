@@ -8,7 +8,7 @@ $(function() {
         map = new ProfileMap();
 
     profilePage.load(posId, function(response){
-        var posInformation = response.pointOfSale;
+        var posInformation = response.string;
         $("#profilePagePosMap").html("");
         map.initMap(posInformation.lat, posInformation.lon, ZOOMONMARKERLEVEL-3, 'profilePagePosMap');
         map.loadMarker(posInformation);
@@ -18,7 +18,7 @@ $(function() {
 
 function ProfilePage(){
     load = function(id, onSuccessReadPosInformation){
-        callAjax("/point_of_sales/"+id, null, onSuccessReadPosInformation);  
+        callAjax("/point_of_sales/"+id, null, onSuccessReadPosInformation);
     };
     return{
         load : load,

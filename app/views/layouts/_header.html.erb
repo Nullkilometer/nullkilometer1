@@ -10,7 +10,7 @@
       </button>
       <!--<a class="navbar-brand" href="#">Tutorial Republic</a>-->
       <%= link_to :root, id: "logo", class: "navbar-brand" do %>
-        <%= image_tag "logo_letters_horizontal.png",  alt: "local food is good" %>       
+        <%= image_tag "logo_letters_horizontal.png",  alt: "local food is good" %>
       <% end %>
     </div>
 
@@ -19,10 +19,10 @@
       <ul class="nav navbar-nav navbar-right">
       <% if current_page?(root_url) || current_page?('/')  %>
         <% isHomePage = true %>
-      <% else %>  
+      <% else %>
         <li>
           <%= link_to  I18n.t('links.global.find_a_selling_place'), isHomePage ? "#" : :root, id: "find_a_selling_place", data: { :no_turbolink => true}, class: "ordinaryLink" %>
-        </li> 
+        </li>
       <% end %>
       <li class="dropdown">
         <a href="#" class="dropdown-toggle ordinaryLink" id="linkToHomepageText" data-toggle="dropdown"><%= I18n.t('links.global.about') %><span class="caret"></span></a>
@@ -31,16 +31,16 @@
           <li><%= link_to I18n.t("headers.localFood"), isHomePage ? "#about_localFood" : root_path(anchor: "about_localFood") %></li>
           <li><%= link_to I18n.t("headers.map"), isHomePage ? "#about_map" : root_path(anchor: "about_map") %></li>
           <li><%= link_to I18n.t("headers.addAPlace"), isHomePage ? "#about_addAPlace" : root_path(anchor: "about_addAPlace") %></li>
-          <li class="divider"></li>
-          <li><%= link_to I18n.t("headers.team"), isHomePage ? "#about_team" : root_path(anchor: "about_team") %></li>
+          <!--<li class="divider"></li>
+          <li><#%= link_to I18n.t("headers.team"), isHomePage ? "#about_team" : root_path(anchor: "about_team") %></li>-->
         </ul>
       </li>
 <!--       <li>
         <%= link_to I18n.t('links.global.news' ), "http://blog.nullkilometer.org", class: "ordinaryLink" %>
-      </li> --> 
+      </li> -->
       <li>
         <%= link_to I18n.t('links.global.add_new_point_of_sales'), :new_point_of_sale, data: { :no_turbolink => true}, class: "ordinaryLink" %>
-      </li> 
+      </li>
       <li class="dropdown">
           <a href="#" class="dropdown-toggle ordinaryLink" data-toggle="dropdown"><%= I18n.locale.upcase %><span class="caret"></span></a>
           <ul class="dropdown-menu">

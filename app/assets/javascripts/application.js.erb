@@ -43,7 +43,7 @@ ZOOMONMARKERLEVEL = 17,
 //osmUrl = 'http://otile{s}.mqcdn.com/tiles/1.0.0/{type}/{z}/{x}/{y}.png', //mapquest - free
 //mapbox - free up to 3000 views/month
 osmTilesUrl = 'http://api.tiles.mapbox.com/v4/mapinas.jniiobb3/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwaW5hcyIsImEiOiJkQ1h3X2VzIn0.cYOpZsGKxmb_QCJ0nQfqsQ',
-geocodingUrl = 'http://nominatim.openstreetmap.org/search',
+geocodingUrl = 'https://nominatim.openstreetmap.org/search',
 
 
 //Images paths
@@ -116,6 +116,24 @@ var translateContent = function(){
 	moreInfoLinkName = I18n.t("links.global.more_information");
 	chooseAnAddressText = I18n.t("input.commands.choose_an_address");
 };
+
+var getInitialLat = function() {
+	var locale = I18n.locale;
+	switch (locale){
+		case 'de': return 52.5233;
+		case 'lt': return 54.687157;
+		default: return INITIALLAT;
+	}
+}
+
+var getInitialLon = function() {
+	var locale = I18n.locale;
+	switch (locale){
+		case 'de': return 13.4127;
+		case 'lt': return 25.279652;
+		default: return INITIALLON;
+	}
+}
 
 var callAjax = function(url, dataToSend, onSuccess){
 	$.ajax({
