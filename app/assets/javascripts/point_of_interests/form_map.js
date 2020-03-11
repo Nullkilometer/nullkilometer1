@@ -1,8 +1,9 @@
 var FormMap = function(){
-  var 
+  var
   map,
   posMarker,
   newPosPlotlayers=[],
+  zoomLevel,
   TEXT_ADDRESS_SELECTION = I18n.t("map.messages.select_one_address"),
   posLat,
   posLon,
@@ -12,17 +13,21 @@ var FormMap = function(){
 
   //PUBLIC METHODS
   initMap = function(lat, lon, address, zoomLevel, mapPlaceholderId) {
-    var 
+    var
     mapOptions = {center : new L.LatLng(lat, lon), zoom : zoomLevel },
-    mapLayer = new L.TileLayer(osmTilesUrl);   
+    mapLayer = new L.TileLayer(osmTilesUrl);
     map = new L.Map(mapPlaceholderId, mapOptions);
     map.addLayer(mapLayer);
     map.whenReady(function () {
       window.setTimeout(function () {
-        placeMarker(lat, lon, address, 12, true);
+        placeMarker(lat, lon, address, this.zoomLevel, true);
       }.bind(this), 2000);
     }, this);
     locationSearchResults
+  },
+  locateUser = function(zoomLevel){
+      this.zoomLevel = zoomLevel;
+      map.locate({setView : true, maxZoom:  this.zoomLevel});
   },
   setLocationSearchPlaceholders = function(formPlaceholder, resultsPlaceholder){
     addressPlaceholderInTheForm = formPlaceholder;
@@ -37,7 +42,7 @@ var FormMap = function(){
         posMarker.data="";
         posMarker.addTo(map);        //OR:  map.addLayer(posMarker);
         newPosPlotlayers.push(posMarker);
-        setMarkerListener(); 
+        setMarkerListener();
     } else { // if a marker is already on the map
         posMarker.setLatLng(coordinates);
     }
@@ -45,12 +50,12 @@ var FormMap = function(){
     map.setZoom(zoomLevel);
     if(!defaultLocation){
         posLat = lat;
-        posLon = lon;    
+        posLon = lon;
         displayAddress(address);
-    }   
+    }
   },
   handleLocation = function(locationData, ifPlaceMarker){
-    var 
+    var
     address_data = locationData.address,
     short_address,
     road = typeof address_data.road != "undefined" ? address_data.road : "",
@@ -60,10 +65,10 @@ var FormMap = function(){
     state = typeof address_data.state != "undefined" ? address_data.state : "",
     country = typeof address_data.country != "undefined" ? address_data.country : "";
     if($.inArray(locationData.class, [ "highway", "place"]) > -1){
-      short_address = road+" "+house_number+" "+postcode+" "+city+" "+state+" "+country; 
+      short_address = road+" "+house_number+" "+postcode+" "+city+" "+state+" "+country;
     } else { //building, shop
       short_address = I18n.t("map.messages.cannot_parse");//"can not parse the address, insert it manually";
-    }  
+    }
     addressPlaceholderInTheForm.val(short_address);
     if (ifPlaceMarker) {
       var lon = locationData.lon,
@@ -73,7 +78,7 @@ var FormMap = function(){
   },
   setMarkerListener = function(){
     posMarker.on('dragend', function (e) {
-      var 
+      var
       coords = e.target.getLatLng();
       posLat= coords.lat;
       posLon = coords.lng,
@@ -99,8 +104,7 @@ var FormMap = function(){
     initMap: initMap,
     //getOSMAddress: getOSMAddress,
     setLocationSearchPlaceholders: setLocationSearchPlaceholders,
-    handleLocation: handleLocation
-  }  
+    handleLocation: handleLocation,
+    locateUser: locateUser
+  }
 }
-
-

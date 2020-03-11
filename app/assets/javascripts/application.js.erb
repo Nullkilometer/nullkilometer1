@@ -117,6 +117,24 @@ var translateContent = function(){
 	chooseAnAddressText = I18n.t("input.commands.choose_an_address");
 };
 
+var getInitialLat = function() {
+	var locale = I18n.locale;
+	switch (locale){
+		case 'de': return 52.5233;
+		case 'lt': return 54.687157;
+		default: return INITIALLAT;
+	}
+}
+
+var getInitialLon = function() {
+	var locale = I18n.locale;
+	switch (locale){
+		case 'de': return 13.4127;
+		case 'lt': return 25.279652;
+		default: return INITIALLON;
+	}
+}
+
 var callAjax = function(url, dataToSend, onSuccess){
 	$.ajax({
         type: "GET",
