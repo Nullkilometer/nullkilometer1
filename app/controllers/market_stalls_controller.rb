@@ -23,7 +23,8 @@ class MarketStallsController < ApplicationController
 
   def new
     puts params
-    parent_market(pos_id) if pos_id = params[:point_of_sale_id] || params[:pointOfSale]
+		pos_id = params[:point_of_sale_id] || params[:pointOfSale]
+    parent_market(pos_id) if pos_id
     @market_stall = MarketStall.new
     respond_with @market_stall
   end
