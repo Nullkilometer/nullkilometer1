@@ -1,34 +1,33 @@
 class PointOfInterestsController < ApplicationController
 
-	respond_to :xml, :json, :html
+  respond_to :xml, :json, :html
   before_action :set_poi_type
 
-
-	def index
+  def index
     approved_status_id = Status.find_by_name('approved')&.id
-		if params[:lat] && params[:lon] && params[:radius]
-			begin
-	      @point_of_interests = @poi_class.nearby(params[:lat], params[:lon], params[:radius]).all
-	    rescue ActiveRecord::StatementInvalid
-	    	raise Errors::InvalidParameters, "Coordinate values are out of range [-180 -90, 180 90]"
-	    end
+    if params[:lat] && params[:lon] && params[:radius]
+      begin
+        @point_of_interests = @poi_class.nearby(params[:lat], params[:lon], params[:radius]).all
+      rescue ActiveRecord::StatementInvalid
+        raise Errors::InvalidParameters, "Coordinate values are out of range [-180 -90, 180 90]"
+      end
     else
       @point_of_interests = @poi_class.where(:status_id => approved_status_id).all # only approved - for the map
-			@point_of_interests_all = @poi_class.all #for a global overview
+      @point_of_interests_all = @poi_class.all #for a global overview
       @point_of_interests_all = @point_of_interests_all.order(params[:sort])
-		end
+    end
     respond_with @point_of_interests
-	end
+  end
 
-	def show
-		begin
-			@point_of_interest = @poi_class.find(params[:id])
+  def show
+    begin
+      @point_of_interest = @poi_class.find(params[:id])
       @merged_product_category_ids = updated_product_category_ids @point_of_interest
-		rescue ActiveRecord::RecordNotFound
-			raise Errors::InvalidPointOfInterest, "Couldn't find #{@poi_class} with id=#{params[:id]}"
-		end
-		respond_with @point_of_interest
-	end
+    rescue ActiveRecord::RecordNotFound
+      raise Errors::InvalidPointOfInterest, "Couldn't find #{@poi_class} with id=#{params[:id]}"
+    end
+    respond_with @point_of_interest
+  end
 
   def new
     @point_of_interest = @poi_class.new()
@@ -37,35 +36,22 @@ class PointOfInterestsController < ApplicationController
   end
 
 
-	def create
-    if params[:type] == "PointOfSale"
-      pos_params = params[:point_of_sale]
-      pos_params["productCategoryIds"].delete("")
-
-      set_default_product_category_for_eating_place(pos_params)
-      cleanup_opening_times(pos_params)
-
-      @point_of_interest = @poi_class.new(pos_params)
-
-      #assign pending status only if admin not signed in
-      if admin_signed_in? == false
-        set_pending_status(@point_of_interest)
-      end
-    end
+  def create
+    create_pos if params[:type] == 'PointOfSale'
 
     if @point_of_interest.save
-      if params[:type] == "PointOfSale" && @point_of_interest.posTypeId == 0
-        #redirect to new market stall for that market
-        if(params[:button] == "continue")
+      if params[:type] == 'PointOfSale' && @point_of_interest.posTypeId.zero?
+        # redirect to new market stall for that market
+        if params[:button] == 'continue'
           logger.debug "Continue - #{params[:button]}"
-          redirect_to controller: 'market_stalls', action: 'new',  point_of_sale_id: @point_of_interest.id, format: 'html', notice: 'addLater'
+          redirect_to controller: 'market_stalls', action: 'new', point_of_sale_id: @point_of_interest.id, format: 'html', notice: 'addLater'
         else
           logger.debug "Finish - #{params[:button]}"
-          #TODO: a message that the place needs to be verified
+          # TODO: a message that the place needs to be verified
           redirect_to action: 'show', id: @point_of_interest.id, format: 'html'
         end
       else
-        #TODO: a message that the place needs to be verified
+        # TODO: a message that the place needs to be verified
         redirect_to action: 'show', id: @point_of_interest.id, format: 'html'
       end
     else
@@ -100,8 +86,7 @@ class PointOfInterestsController < ApplicationController
       raise Errors::InvalidPointOfInterest, "Couldn't find #{@poi_class} with id=#{params[:id]}"
     end
     if params[:type] == "PointOfSale"
-      pos_params = params[:point_of_sale]
-      pos_params["productCategoryIds"].delete("")
+      pos_params = record_params
 
       set_default_product_category_for_eating_place(pos_params)
 
@@ -163,6 +148,21 @@ class PointOfInterestsController < ApplicationController
   end
 
   private
+
+  def create_pos
+    pos_params = record_params
+    set_default_product_category_for_eating_place(pos_params)
+    cleanup_opening_times(pos_params)
+
+    @point_of_interest = @poi_class.new(pos_params)
+
+    # assign pending status only if admin not signed in
+
+    return if admin_signed_in?
+
+    set_pending_status(@point_of_interest)
+  end
+
   def set_poi_type
     if params[:type]
       @poi_class = params[:type].constantize
@@ -188,7 +188,7 @@ class PointOfInterestsController < ApplicationController
     logger.debug "cleaning up opening times (destroying those with empty day): #{pos_params["opening_times_attributes"]}"
     pos_params["opening_times_attributes"].each do |ot_array|
       ot = ot_array[1]
-      if ot[:day].empty? #|| ( ot[:from].empty? && ot[:to].empty? ) || ot[:from] == ""
+      if !ot[:day].present? || ot[:day].empty? #!ot[:day] || ot[:day].empty? #|| ( ot[:from].empty? && ot[:to].empty? ) || ot[:from] == ""
         ot['_destroy'] = true
       end
     end
@@ -203,4 +203,14 @@ class PointOfInterestsController < ApplicationController
     end
   end
 
+  def record_params
+    params.require(:point_of_sale)
+          .permit(
+            :name, :address, :place_feature_ids,
+            :phone, :cell_phone, :mail, :website, :description, :image,
+            :posTypeId, :pos_type,
+            productCategoryIds: [],
+            opening_times_attributes: {}
+          )
+  end
 end

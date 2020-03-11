@@ -3,12 +3,12 @@ module PointOfSalesHelper
 
   def number_of_pending_selling_points
     pending_status_id = Status.find_by_name('pending').id
-    @number_of_pending_selling_points = PointOfSale.find_all_by_status_id(pending_status_id).length
+    @number_of_pending_selling_points = PointOfSale.where(status_id: pending_status_id).count
   end
 
    def number_of_pending_market_stalls
     pending_status_id = Status.find_by_name('pending').id
-    @number_of_pending_market_stalls = MarketStall.find_all_by_status_id(pending_status_id).length
+    @number_of_pending_market_stalls = MarketStall.where(status_id: pending_status_id).count
   end
 
 
