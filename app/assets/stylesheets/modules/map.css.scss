@@ -73,7 +73,7 @@ $minHeightMap: 665px;
 				margin: 10px 10px 0px 10px !important;
 				color: gray;
 		}
-		.what, .where, .when { 
+		.what, .where, .when {
 			p{
 				height: 45px;
 				line-height: 45px;
@@ -93,23 +93,23 @@ $minHeightMap: 665px;
 					&:hover {
 						cursor:pointer;
 					}
-					@media only screen and (min-width: 500px) { 
-						height: 45px; 
+					@media only screen and (min-width: 500px) {
+						height: 45px;
 						line-height: 45px;
 						font-size: 13px;
 						input[name="productCategory"], input[name="shopTypeId"], input[name="openingDay"] {
 							height: 35px;
-						}	
+						}
 					}
-					@media only screen and (max-width: 500px) { 
-						height: 35px; 
+					@media only screen and (max-width: 500px) {
+						height: 35px;
 						line-height: 35px;
 						font-size: 12px;
 						input[name="productCategory"], input[name="shopTypeId"], input[name="openingDay"] {
 							height: 30px;
 						}
 					}
-				}	
+				}
 			}
 		}
 	}
@@ -120,7 +120,7 @@ $minHeightMap: 665px;
 		top:0px;
 		height: 100%;
 		min-height: $minHeightMap; //not less than an open filter
-		
+
 		width: 100%;
 		#map, #online_shops_map {
 			height: 100%;
@@ -134,7 +134,6 @@ $minHeightMap: 665px;
 		right: 0px;
 		width: $buttonAndInputHeight;
 		margin: 0;
-		z-index: 10;
 
 		.leaflet-control-attribution{
 			display: none;
@@ -170,7 +169,7 @@ $minHeightMap: 665px;
 		.leaflet-bar-part-bottom {
 			@include roundedCorners(0px);
 		}
-	} 
+	}
 
 	/* map infbox styling */
 
@@ -206,9 +205,8 @@ $minHeightMap: 665px;
 			margin: 0px;
 			padding: 0px;
 		}
-	} 
+	}
 
 	/* map infobox styling end */
 
-}	
-
+}
