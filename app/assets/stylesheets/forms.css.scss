@@ -110,7 +110,7 @@ form.edit_admin, form.new_admin {
 		#addressLookupContainer {
 			position: absolute;
 			width: 283px;
-			z-index: 1;
+			z-index: 1000;
 
 			#locationInput, #locationSubmit{
 				top: 0px;
